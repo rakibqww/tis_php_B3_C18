@@ -1,0 +1,36 @@
+<?php
+
+require_once 'vendor/autoload.php';
+use App\classes\Home;
+use App\classes\Series;
+use App\classes\Registration;
+
+if (isset($_GET['pages'])){
+    if ($_GET['pages'] == 'home'){
+        include 'pages/home.php';
+    }elseif ($_GET['pages'] == 'series'){
+        include 'pages/series.php';
+    }elseif ($_GET['pages'] == 'register'){
+        include 'pages/register.php';
+    }elseif ($_GET['pages'] == 'session_test'){
+        include 'session_test.php';
+        $home = new Home();
+        $home->index();
+    }
+
+}
+elseif (isset($_POST['prime_btn'])){
+    $home   = new Home($_POST);
+   $result  = $home->primeNumber();
+    include "pages/home.php";
+}elseif (isset($_POST['series_btn'])){
+    $series   = new Series($_POST);
+    $result  = $series->getSeries();
+    include "pages/series.php";
+}elseif (isset($_POST['register_btn'])){
+    $register = new Registration($_POST);
+}
+else{
+    $home = new Home();
+    $home->index();
+}
